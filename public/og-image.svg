@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F172A"/>
+      <stop offset="100%" style="stop-color:#1E293B"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#2563EB"/>
+      <stop offset="100%" style="stop-color:#38BDF8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect x="60" y="60" width="200" height="60" rx="12" fill="url(#accent)"/>
+  <text x="80" y="100" font-family="Arial,sans-serif" font-weight="800" font-size="28" fill="white">ScorpiCore</text>
+  <text x="60" y="200" font-family="Arial,sans-serif" font-weight="700" font-size="52" fill="white">Desarrollo Web</text>
+  <text x="60" y="270" font-family="Arial,sans-serif" font-weight="700" font-size="52" fill="white">de Alto Nivel</text>
+  <rect x="60" y="310" width="100" height="4" rx="2" fill="url(#accent)"/>
+  <text x="60" y="370" font-family="Arial,sans-serif" font-weight="400" font-size="24" fill="#94A3B8">Landing Pages • Sitios Corporativos • Software a Medida</text>
+  <text x="60" y="430" font-family="Arial,sans-serif" font-weight="400" font-size="20" fill="#64748B">Performance 100/100 • Diseño Premium • SEO Técnico</text>
+  <text x="60" y="540" font-family="Arial,sans-serif" font-weight="600" font-size="22" fill="url(#accent)">scorpicore.com</text>
+  <text x="60" y="580" font-family="Arial,sans-serif" font-weight="400" font-size="18" fill="#64748B">Cotización Gratis • WhatsApp: +57 317 690 8842</text>
+</svg>

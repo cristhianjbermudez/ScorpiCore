@@ -1,0 +1,26 @@
+# ScorpiCore - robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemaps
+Sitemap: https://scorpicore.com/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Allow all major bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: Facebookbot
+Allow: /
+
+User-agent: WhatsApp
+Allow: /
