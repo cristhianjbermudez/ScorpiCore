@@ -731,7 +731,7 @@ if (process.env.NODE_ENV === 'production') {
     etag: true,
   }))
 
-  app.get('*', (req, res) => {
+  app.get('{*splat}', (req, res) => {
     if (!req.path.startsWith('/api')) {
       res.sendFile(path.join(__dirname, '../dist/index.html'))
     }
