@@ -68,8 +68,12 @@ function LandingPage({ onNavigate }) {
   )
 }
 
+const SECTION_IDS = ['hero', 'portafolio', 'contacto', 'servicios', 'proceso', 'precios', 'testimonios', 'faq']
+
 function getHash() {
-  return window.location.hash.replace('#', '').replace('/', '') || 'home'
+  const raw = window.location.hash.replace('#', '').replace('/', '') || 'home'
+  if (SECTION_IDS.includes(raw)) return 'home'
+  return raw
 }
 
 export default function App() {
@@ -84,6 +88,15 @@ export default function App() {
   useEffect(() => {
     if (page === 'admin' || page === 'privacidad' || page === 'terminos') {
       window.scrollTo(0, 0)
+    }
+  }, [page])
+
+  useEffect(() => {
+    const raw = window.location.hash.replace('#', '').replace('/', '')
+    if (SECTION_IDS.includes(raw) && raw !== 'hero') {
+      requestAnimationFrame(() => {
+        document.getElementById(raw)?.scrollIntoView({ behavior: 'smooth' })
+      })
     }
   }, [page])
 
