@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=scorpicore
+      - DB_PASSWORD=${DB_PASSWORD:-scorpicore2024}
+      - DB_NAME=scorpicore
+      - NODE_ENV=production
+      - PORT=3000
+      - ADMIN_USER=${ADMIN_USER:-admin}
+      - ADMIN_PASS=${ADMIN_PASS:-admin123}
+      - JWT_SECRET=${JWT_SECRET:-change-this-to-a-random-64-char-string}
+      - ALLOWED_ORIGIN=${ALLOWED_ORIGIN:-*}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - uploads:/app/public/uploads
+
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpassword}
+      - MYSQL_DATABASE=scorpicore
+      - MYSQL_USER=scorpicore
+      - MYSQL_PASSWORD=${DB_PASSWORD:-scorpicore2024}
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/schema-vps.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql_data:
+  uploads:
