@@ -1,0 +1,53 @@
+require('dotenv').config()
+const mysql = require('mysql2/promise')
+
+async function seedSettings() {
+  if (!process.env.DB_HOST) {
+    console.log('⚠️  No DB config found, skipping seed')
+    return
+  }
+
+  const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  })
+
+  const conn = await pool.getConnection()
+  console.log('✅ Connected to MySQL for settings seed')
+
+  const settings = [
+    ['hero', '{"badge":"Agencia de desarrollo web premium","heading":"Tu negocio merece una presencia digital que genere ","headingHighlight":"clientes","subtitle":"Diseñamos páginas web y software que no solo se ven bien: convierten visitantes en clientes reales. Cada proyecto está optimizado para hacer crecer tu empresa.","ctaPrimary":"Ver cómo trabajamos","ctaSecondary":"Agendar llamada gratuita","ctaPrimaryHref":"#portafolio","ctaSecondaryHref":"#contacto","stats":[{"value":"120+","label":"Proyectos entregados"},{"value":"80+","label":"Clientes que crecieron"},{"value":"7 días","label":"Tu landing lista"}],"dashboard":{"chartBars":[40,55,45,70,60,85,75,90,80,95,88,100],"stats":[{"label":"Tráfico","value":"12.4k"},{"label":"Ventas","value":"3.8k"},{"label":"ROI","value":"340%"}],"floatCards":[{"label":"Tiempo de carga","value":"0.8 seg"},{"label":"+42%","sub":"conversión"},{"label":"100/100","sub":"Lighthouse Score"}]}}'],
+    ['stats', '{"items":[{"value":"120+","label":"Proyectos que generan resultados"},{"value":"80+","label":"Empresas que confiaron en nosotros"},{"value":"7 días","label":"Para tener tu landing page lista"},{"value":"< 2h","label":"Tiempo de respuesta garantizado"}]}'],
+    ['whyus', '{"badge":"Por qué elegirnos","heading":"No vendemos código. Vendemos ","headingHighlight":"resultados","subtitle":"Cada decisión que tomamos tiene un solo objetivo: hacer que tu empresa consiga más clientes.","reasons":[{"icon":"TrendingUp","title":"Diseñados para generar clientes","description":"No creamos páginas bonitas. Creamos máquinas de conversión. Cada botón, cada texto y cada imagen está pensado para que tu visitante se convierta en cliente.","metric":"+42%","metricLabel":"más conversiones en promedio"},{"icon":"Zap","title":"Carga instantánea","description":"Tu página carga en menos de 1 segundo. Tus clientes no esperan y Google tampoco. Velocidad = más ventas. Punto.","metric":"< 1s","metricLabel":"tiempo de carga"},{"icon":"Shield","title":"Seguridad sin preocupaciones","description":"SSL, backups diarios, protección contra ataques y actualizaciones automáticas. Tu sitio y los datos de tus clientes siempre seguros.","metric":"99.9%","metricLabel":"disponibilidad garantizada"},{"icon":"Target","title":"Performance perfecto","description":"100/100 en Lighthouse. No es un número: es la garantía de que tu sitio funciona al máximo en velocidad, SEO y accesibilidad.","metric":"100/100","metricLabel":"Lighthouse Score"},{"icon":"Scaling","title":"Crece sin límites","description":"Tu sitio funciona igual con 100 visitas que con 1 millón. No te preocupes por el éxito: nosotros nos encargamos de que la tecnología no te frene.","metric":"1M+","metricLabel":"visitantes sin problemas"},{"icon":"Headphones","title":"Soporte humano y rápido","description":"No te dejamos solo después del lanzamiento. Respondemos en menos de 2 horas, conocemos tu proyecto y resolvemos lo que necesites.","metric":"< 2h","metricLabel":"respuesta garantizada"}]}'],
+    ['process', '{"badge":"Cómo trabajamos","heading":"Un proceso claro. ","headingHighlight":"Cero sorpresas","subtitle":"Sabemos que tu tiempo vale dinero. Por eso cada proyecto sigue un método probado que garantiza resultados sin improvisación.","steps":[{"number":"01","title":"Entendemos tu negocio","description":"No empezamos a diseñar sin conocerte. Hablamos de tus objetivos, tu mercado y tus clientes para que el resultado sea exactamente lo que necesitas.","icon":"Search"},{"number":"02","title":"Diseño que convierte","description":"Creamos un diseño premium pensado para guiar a tu visitante hacia la acción. Cada pixel tiene un propósito: generar un cliente más.","icon":"Palette"},{"number":"03","title":"Desarrollo de alto nivel","description":"Construimos tu sitio con tecnologías probadas a escala mundial. Rápido, seguro y preparado para crecer con tu negocio.","icon":"Code"},{"number":"04","title":"Pruebas exhaustivas","description":"Probamos cada detalle antes de que tu sitio se publique. Velocidad, seguridad, usabilidad y compatibilidad: todo verificado.","icon":"TestTube"},{"number":"05","title":"Lanzamiento","description":"Tu sitio se publica con todo optimizado: hosting rápido, SSL activo, dominio configurado y rendimiento al máximo.","icon":"Rocket"},{"number":"06","title":"Soporte continuo","description":"No desaparecemos después del lanzamiento. Mantenimiento, actualizaciones de seguridad y soporte técnico cuando lo necesites.","icon":"Wrench"}]}'],
+    ['technologies', '{"badge":"Tecnología","heading":"Herramientas probadas, ","headingHighlight":"resultados garantizados","subtitle":"Usamos las mismas tecnologías que las grandes empresas del mundo. No experimentamos con tu negocio: usamos lo que funciona.","items":[{"name":"Node.js","initial":"N","color":"text-green-600","bg":"bg-green-50"},{"name":"Spring","initial":"S","color":"text-green-600","bg":"bg-green-50"},{"name":"Laravel","initial":"L","color":"text-red-500","bg":"bg-red-50"},{"name":"React","initial":"R","color":"text-blue-500","bg":"bg-blue-50"},{"name":"Vue","initial":"V","color":"text-emerald-500","bg":"bg-emerald-50"},{"name":"Next.js","initial":"N","color":"text-slate-800","bg":"bg-slate-100"},{"name":"Docker","initial":"D","color":"text-blue-600","bg":"bg-blue-50"},{"name":"PostgreSQL","initial":"P","color":"text-blue-700","bg":"bg-blue-50"},{"name":"MySQL","initial":"M","color":"text-blue-600","bg":"bg-blue-50"},{"name":"MongoDB","initial":"M","color":"text-green-700","bg":"bg-green-50"},{"name":"AWS","initial":"A","color":"text-orange-500","bg":"bg-orange-50"},{"name":"Hostinger","initial":"H","color":"text-purple-600","bg":"bg-purple-50"}]}'],
+    ['contact', '{"badge":"Solicitar cotización","heading":"Cuéntanos tu ","headingHighlight":"proyecto","subtitle":"Cuéntanos qué necesitas y te enviaremos una propuesta personalizada en menos de 24 horas. Sin compromiso, sin costo.","projectTypes":["Landing Page","Sitio Web Corporativo","Software a Medida","E-commerce / Tienda Online","Automatización de Procesos","Otro"],"budgets":["Menos de $1,000","$1,000 - $3,000","$3,000 - $10,000","$10,000 - $25,000","Más de $25,000"],"whatsapp":"573176908842","email":"hola@scorpicore.com","phone":"+57 317 690 8842","guaranteeText":"Respuesta en menos de 24 horas — Cotización gratuita — Sin compromiso"}'],
+    ['footer', '{"heading":"¿Listo para hacer crecer tu negocio?","ctaPrimary":"Solicitar propuesta","ctaSecondary":"Ver ejemplos","description":"Creamos páginas web y software que generan clientes reales. Landing pages, sitios corporativos, tiendas online y soluciones a medida.","links":{"empresa":[{"label":"Inicio","href":"#hero"},{"label":"Servicios","href":"#servicios"},{"label":"Portafolio","href":"#portafolio"},{"label":"Planes y precios","href":"#planes"}],"recursos":[{"label":"Cómo trabajamos","href":"#proceso"},{"label":"Preguntas frecuentes","href":"#faq"},{"label":"Contacto","href":"#contacto"}]},"social":[{"label":"WhatsApp","href":"https://wa.me/573176908842"},{"label":"Email","href":"mailto:hola@scorpicore.com"}],"privacyLabel":"Política de Privacidad","termsLabel":"Términos de Servicio","adminLabel":"Admin"}'],
+    ['navbar', '{"links":[{"label":"Servicios","href":"#servicios"},{"label":"Proceso","href":"#proceso"},{"label":"Portafolio","href":"#portafolio"},{"label":"Planes","href":"#planes"},{"label":"FAQ","href":"#faq"}],"cta":"Solicitar propuesta","ctaHref":"#contacto"}'],
+    ['whatsapp', '{"number":"573176908842","tooltip":"¿Tienes un proyecto en mente?","tooltipSub":"Habla con nosotros por WhatsApp.","message":"Hola, me gustaría solicitar una cotización para un proyecto"}'],
+    ['faq', '{"badge":"Dudas comunes","heading":"Lo que más nos ","headingHighlight":"preguntan","subtitle":"Respuestas claras para que tomes la mejor decisión. Si no encuentras lo que buscas, escríbenos por WhatsApp.","cta":"Preguntar por WhatsApp"}'],
+    ['services_section', '{"badge":"Servicios","heading":"Soluciones que hacen crecer tu ","headingHighlight":"empresa","subtitle":"Cada servicio está diseñado con un objetivo: conseguir más clientes para tu negocio."}'],
+    ['portfolio_section', '{"badge":"Nuestros trabajos","heading":"Proyectos que ","headingHighlight":"generan clientes reales","subtitle":"Cada diseño tiene un objetivo: hacer crecer tu empresa. Estos son algunos de los resultados que hemos logrado junto a nuestros clientes."}'],
+    ['pricing_section', '{"badge":"Planes y precios","heading":"Inversión clara, ","headingHighlight":"sin sorpresas","subtitle":"Elige el plan que se ajuste a tu momento. Todos personalizables, todos orientados a generar resultados."}'],
+    ['testimonials_section', '{"badge":"Confianza comprobada","heading":"Empresas que ya ","headingHighlight":"confían en nosotros","subtitle":"La mejor forma de conocer nuestro trabajo es hablando directamente con nosotros. Cuéntanos tu proyecto y te mostraremos cómo podemos ayudarte."}'],
+  ]
+
+  try {
+    for (const [key, content] of settings) {
+      await conn.query(
+        'INSERT INTO site_settings (section_key, content) VALUES (?, ?) ON DUPLICATE KEY UPDATE content = ?',
+        [key, content, content]
+      )
+    }
+    console.log('✅ Site settings seeded')
+  } catch (err) {
+    console.error('❌ Settings seed error:', err.message)
+  } finally {
+    conn.release()
+    await pool.end()
+  }
+}
+
+seedSettings()
