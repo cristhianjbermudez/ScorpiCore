@@ -611,6 +611,12 @@ const FIELDS = {
     { key: 'answer', label: 'Respuesta', type: 'textarea', required: true },
     { key: 'visible', label: 'Visible', type: 'toggle', default: true },
   ],
+  services_section: [
+    { key: 'badge', label: 'Badge', type: 'text', placeholder: 'Servicios' },
+    { key: 'heading', label: 'Título', type: 'text', placeholder: 'Soluciones que hacen crecer tu ' },
+    { key: 'headingHighlight', label: 'Título resaltado', type: 'text', placeholder: 'empresa' },
+    { key: 'subtitle', label: 'Subtítulo', type: 'textarea', placeholder: 'Cada servicio está diseñado con un objetivo...' },
+  ],
   messages: [
     { key: 'name', label: 'Nombre', type: 'text' },
     { key: 'email', label: 'Email', type: 'text' },
