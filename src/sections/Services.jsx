@@ -1,24 +1,37 @@
 import { Globe, Check } from 'lucide-react'
 import ScrollReveal from '../components/ScrollReveal'
 import { useApi } from '../lib/useApi'
+import { useSettings } from '../lib/useSettings'
 import { resolveIcon } from '../lib/icons'
+
+const defaultServices = {
+  badge: 'Servicios',
+  heading: 'Soluciones que hacen crecer tu ',
+  headingHighlight: 'empresa',
+  subtitle:
+    'Cada servicio está diseñado con un objetivo: conseguir más clientes para tu negocio.',
+}
 
 export default function Services() {
   const { data: services } = useApi('services')
+  const { data: settings } = useSettings('services_section')
+
+  const badge = settings?.badge || defaultServices.badge
+  const heading = settings?.heading || defaultServices.heading
+  const headingHighlight = settings?.headingHighlight || defaultServices.headingHighlight
+  const subtitle = settings?.subtitle || defaultServices.subtitle
 
   return (
     <section id="servicios" className="py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <ScrollReveal className="mx-auto max-w-2xl text-center">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-brand-primary/20 bg-brand-primary/10 px-4 py-1.5 text-sm font-medium text-brand-primary">
-            Servicios
+            {badge}
           </div>
           <h2 className="text-3xl font-bold tracking-tight text-brand-secondary sm:text-4xl lg:text-5xl">
-            Soluciones que hacen crecer tu <span className="gradient-text">empresa</span>
+            {heading} <span className="gradient-text">{headingHighlight}</span>
           </h2>
-          <p className="mt-4 text-lg text-slate-500">
-            Cada servicio está diseñado con un objetivo: conseguir más clientes para tu negocio.
-          </p>
+          <p className="mt-4 text-lg text-slate-500">{subtitle}</p>
         </ScrollReveal>
 
         <ScrollReveal stagger={0.1} className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
